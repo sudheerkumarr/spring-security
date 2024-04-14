@@ -1,0 +1,80 @@
+package com.example.config;
+
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.item.data.RepositoryItemWriter;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.LineMapper;
+import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
+
+import com.example.entity.Employee;
+
+@Configuration
+@EnableBatchProcessing
+public class CsvBatchConfig {
+	
+	
+	// Method to read csv file using ItemReader
+	@Bean
+	FlatFileItemReader<Employee> empReader() {
+		
+		FlatFileItemReader<Employee> itemReader= new FlatFileItemReader<>();
+		
+		// set employees csv file path from where itemReader has to read
+		itemReader.setResource(new FileSystemResource("employees-data-100.csv"));
+		
+		// set name to item reader
+		itemReader.setName("csvReader");
+		
+		// Skip header line while reading data from csv file
+		itemReader.setLinesToSkip(1);
+		
+		//Convert csv line to Java employee object
+		itemReader.setLineMapper(lineMapper());
+		
+		return itemReader;
+		
+		
+	}
+
+	// Method to return LineMapper Object
+	
+	private LineMapper<Employee> lineMapper() {
+		DefaultLineMapper<Employee> lineMapper = new DefaultLineMapper<>();
+	
+		// Set delimiter 
+		DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+		lineTokenizer.setDelimiter(",");
+		
+		// set null as column value in case any column value not present
+		lineTokenizer.setStrict(false);
+		
+		// Order of data available
+		lineTokenizer.setNames("empId", "firstName", "lastName", "gender", "email", "dob", "jobTitle");
+		
+		// Convert csv line to Employee object
+		BeanWrapperFieldSetMapper<Employee> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+		fieldSetMapper.setTargetType(Employee.class);
+		
+		// update lineMapper with lineTokenizer & fieldSetMapper
+		lineMapper.setLineTokenizer(lineTokenizer);
+		lineMapper.setFieldSetMapper(fieldSetMapper);
+		
+		// return lineMapper Object
+		return lineMapper;
+	}
+
+	// Create ItemProcessor
+	public EmployeeProcessor empProcessor() {
+		return new EmployeeProcessor();
+	}
+	
+	// create ItemWrite
+	public RepositoryItemWriter<Employee> empWriter() {
+		
+	}
+}

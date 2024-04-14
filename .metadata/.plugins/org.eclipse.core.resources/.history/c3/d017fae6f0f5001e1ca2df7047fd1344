@@ -1,0 +1,28 @@
+package com.example.config;
+
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
+
+import com.example.entity.Employee;
+
+@Configuration
+@EnableBatchProcessing
+public class CsvBatchConfig {
+	
+	@Bean
+	FlatFileItemReader<Employee> empReader() {
+		
+		FlatFileItemReader<Employee> itemReader= new FlatFileItemReader<>();
+		
+		// set employees csv file path from where itemReader has to read
+		itemReader.setResource(new FileSystemResource("resources\\employees-data-100.csv"));
+		
+		return null;
+		
+		
+	}
+
+}

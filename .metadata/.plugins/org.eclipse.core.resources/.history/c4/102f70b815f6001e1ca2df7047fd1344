@@ -1,0 +1,11 @@
+spring.application.name=demo
+
+# Oracle settings
+spring.datasource.url=jdbc:oracle:thin:@localhost:1521:ORCL
+spring.datasource.username=SYSTEM
+spring.datasource.password=passwd
+spring.datasource.driver.class-name=oracle.jdbc.OracleDriver
+
+# batch config
+spring.batch.jdbc.initialize-schema=ALWAYS
+spring.batch.job.enabled=false

@@ -1,0 +1,16 @@
+INDEX VERSION 1.131+D:\workspace\Spring-Mps\.metadata\.plugins\org.eclipse.jdt.core
+3435648363.index
+3541429086.index
+1519149440.index
+290467468.index
+3709442225.index
+1865797976.index
+3655122931.index
+1533539989.index
+2198467889.index
+3100228276.index
+3264187969.index
+3712736208.index
+2526261586.index
+1219075921.index
+3128719328.index

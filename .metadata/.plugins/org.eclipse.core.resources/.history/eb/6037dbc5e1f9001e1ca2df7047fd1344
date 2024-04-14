@@ -1,0 +1,77 @@
+package com.example.controller;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class EmployeeController {
+	
+	@Autowired
+	EmployeeService empService;
+	
+	
+	// GET -  all employee details
+		@GetMapping("/employee/all")
+		ResponseEntity<List<Employee>> getAllEmployees() {
+			List<Employee> empList = empService.getAllEmployees();
+			return new ResponseEntity<>(empList, HttpStatus.OK); // 200 OK
+		}
+
+		// GET - employee by id
+		@GetMapping("/employee/findById/{id}")
+		ResponseEntity<Employee> getEmployeeById(@PathVariable("id") int id) throws EmployeeNotFoundException {
+			// Call service method to get emp based on id
+			Employee emp = empService.getEmployeeById(id);
+
+			// return emp
+			return new ResponseEntity<>(emp, HttpStatus.OK); // 200 OK
+		}
+		
+		// POST - Insert/Add Employee
+		@PostMapping("/employee/add")
+		Employee addEmployee(@RequestBody Employee emp) {
+			// Call service add method to add emp in db
+			Employee newEmp = empService.addEmployee(emp);
+
+			// return response
+			return newEmp;
+		}
+		
+		// PUT - Update employee
+		@PutMapping("/employee/update")
+		Employee updateEmployee(@RequestBody Employee emp) {
+			// Call service method to update emp in db
+			Employee e = empService.updateEmployee(emp);
+
+			// return response
+			return e;
+
+		}
+		
+		//DELETE - Employee by id
+
+		@DeleteMapping("/employee/delete/{id}")
+		void deleteEmployeeById(@PathVariable int id) {
+			// Call service method to delete employee using id
+			empService.deleteEmployeeById(id);
+
+		}
+		
+		//PATCH - updating specific parameter
+		@PatchMapping("/employee/update/empId/{id}/contactNo/{cNo}")
+		Employee updateContactNo(@PathVariable int id, @PathVariable("cNo") String newContactNo) {
+			// Call service method to update contact no.
+			Employee e = empService.updateContactNo(id, newContactNo);
+
+			// return response
+			return e;
+		}
+}

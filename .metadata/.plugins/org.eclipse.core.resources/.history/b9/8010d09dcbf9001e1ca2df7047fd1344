@@ -1,0 +1,38 @@
+spring.application.name=demo
+server.port=8082
+
+# Oracle settings
+#spring.datasource.url=jdbc:oracle:thin:@localhost:1521:mydb1
+#spring.datasource.username=SYSTEM
+#spring.datasource.password=passwd
+#spring.datasource.driver.class-name=oracle.jdbc.OracleDriver
+
+# H2 Database
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:dcbapp
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+# JPA settings
+jpa.hibernate.ddl-auto=update
+jpa.show-sql=true
+
+# Actuator - Enable end points
+
+# Enable all end points
+#management.endpoints.web.exposure.include=*
+
+# Enable multiple end points
+# management.endpoints.web.exposure.include=beans,health
+
+# Enable single end point
+#management.endpoints.web.exposure.include=info
+
+# Exclude end points to stop exposing
+#management.endpoints.web.exposure.exclude=beans
+
+# batch config
+spring.batch.jdbc.initialize-schema=ALWAYS
+spring.batch.job.enabled=false

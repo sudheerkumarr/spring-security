@@ -1,0 +1,22 @@
+package com.example.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+
+@Entity
+public class Employee {
+
+	@Id
+	@GeneratedValue
+	private int empId;
+
+	private String firstName;
+	private String lastName;
+	private String contactNo;
+
+	// OneToOne relationship
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "emp_login_fk")
+	private Login login;
+
+}

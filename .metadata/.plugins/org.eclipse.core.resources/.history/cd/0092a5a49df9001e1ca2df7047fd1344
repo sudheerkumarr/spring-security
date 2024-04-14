@@ -1,0 +1,23 @@
+package com.example.config;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
+import org.springframework.batch.item.ItemProcessor;
+
+import com.example.entity.Employee;
+
+public class EmployeeProcessor implements ItemProcessor<Employee, Employee>{
+
+	// Process data
+	@Override
+	public Employee process(Employee item) throws Exception {
+		// logic that needs to apply on data before writing into db.
+		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat format2 = new SimpleDateFormat("dd-MMM-yy");
+        
+        Date date = format1.parse(item.getDob().toString());
+        System.out.println(format2.format(date));
+	}
+
+}

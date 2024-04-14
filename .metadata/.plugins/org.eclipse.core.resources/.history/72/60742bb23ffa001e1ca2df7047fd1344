@@ -1,0 +1,16 @@
+package com.example.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SecurityConfig {
+
+	// Inject data source autoconfigured by spring boot
+		@Bean
+		public UserDetailsManager userDetailsManager(DataSource dataSource) {
+			// Tell to spring security to use JDBC authentication with our data source
+			// No hard coding users.
+			return new JdbcUSerDetailsManager(dataSource);
+		}
+}

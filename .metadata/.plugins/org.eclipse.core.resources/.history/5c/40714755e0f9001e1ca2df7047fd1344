@@ -1,0 +1,29 @@
+package com.example.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class EmployeeController {
+	
+	
+	
+	// Get all employee details
+		@GetMapping("/employee/all")
+		ResponseEntity<List<Employee>> getAllEmployees() {
+			List<Employee> empList = empService.getAllEmployees();
+			return new ResponseEntity<>(empList, HttpStatus.OK); // 200 OK
+		}
+
+		// Get employee by id
+		@GetMapping("/employee/findById/{id}")
+		ResponseEntity<Employee> getEmployeeById(@PathVariable("id") int id) throws EmployeeNotFoundException {
+			// Call service method to get emp based on id
+			Employee emp = empService.getEmployeeById(id);
+
+			// return emp
+			return new ResponseEntity<>(emp, HttpStatus.OK); // 200 OK
+		}
+}

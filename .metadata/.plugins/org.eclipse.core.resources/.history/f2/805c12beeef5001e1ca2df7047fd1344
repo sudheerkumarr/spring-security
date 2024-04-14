@@ -1,0 +1,18 @@
+package com.example.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+
+@Entity
+public class Employee {
+	
+	@Id
+	@GeneratedValue
+	private int eId;
+	private String firstName;
+	private String lastName;
+	private String gender;
+	private String email;
+	private String jobTitle; 
+
+}

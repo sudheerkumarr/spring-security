@@ -1,0 +1,64 @@
+package com.example.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+
+// Customized security configuration
+/*
+ * In spring security 
+ */
+@Configuration
+public class SecurityConfig {
+	
+	
+	// Create user accounts in in-memory
+	/*
+	 * InMemoryUserDetailsManager:
+	 * - Stores credentials in memory
+	 * - Implements UserDetailsService(I) to provide support for username/password based authentication that is stored in memory.
+	 * - It is mainly intended for testing and demonstration purposes.
+	 */
+	@Bean
+	public InMemoryUserDetailsManager userDetailsManager() {
+		UserDetails ram = User.builder()
+				.username("ram")
+				.password("{noop}abc.123")
+				.roles("EMPLOYEE")
+				.build();
+		
+		// {noop} - passwords stored in-memory in plain text format
+		UserDetails sam = User.builder()
+				.username("sam")
+				.password("{noop}abc.123")
+				.roles("EMPLOYEE", "ADMIN")
+				.build();
+		
+		UserDetails raj = User.builder()
+				.username("raj")
+				.password("{noop}abc.123")
+				.roles("EMPLOYEE", "MANAGER")
+				.build();
+		
+		return new InMemoryUserDetailsManager(ram, sam, raj);
+		
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain() throws Exception {
+		http.authorizeHttpRequests(configurer -> 
+			configurer
+				.requestMatchers(HttpMethod.GET, "/home").hasRole("EMPLOYEE", "ADMIN"));
+
+	// Use Http Basic Authentication
+	http.httpBasic(Customizer.withDefaults());
+
+	return http.build();
+
+	}
+}

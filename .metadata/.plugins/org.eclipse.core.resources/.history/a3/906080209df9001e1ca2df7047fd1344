@@ -1,0 +1,19 @@
+package com.example.config;
+
+import java.time.LocalDate;
+
+import org.springframework.batch.item.ItemProcessor;
+
+import com.example.entity.Employee;
+
+public class EmployeeProcessor implements ItemProcessor<Employee, Employee>{
+
+	// Process data
+	@Override
+	public Employee process(Employee item) throws Exception {
+		// logic that needs to apply on data before writing into db.
+		LocalDate dob= item.getDob();
+		return item;
+	}
+
+}

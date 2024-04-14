@@ -1,0 +1,11 @@
+package com.example.entity;
+
+public class Customer {
+	private int eId;
+	private String firstName;
+	private String lastName;
+	private String gender;
+	private String email;
+	private String jobTitle; 
+
+}

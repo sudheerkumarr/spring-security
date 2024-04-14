@@ -1,0 +1,16 @@
+package com.example.config;
+
+import org.springframework.batch.item.ItemProcessor;
+
+import com.example.entity.Employee;
+
+public class EmployeeProcessor implements ItemProcessor<Employee, Employee>{
+
+	// Process data
+	@Override
+	public Employee process(Employee item) throws Exception {
+		
+		return item;
+	}
+
+}

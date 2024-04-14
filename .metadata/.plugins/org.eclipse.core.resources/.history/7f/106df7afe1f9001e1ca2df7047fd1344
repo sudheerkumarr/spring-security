@@ -1,0 +1,55 @@
+package com.example.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.entity.Employee;
+import com.example.exception.EmployeeNotFoundException;
+
+@Service
+public class EmployeeServiceImpl implements IEmployeeService {
+	
+	@Autowired
+	EmployeeDao empDao;
+	
+	@Autowired
+	LoginDao loginDao;
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		
+		return null;
+	}
+
+	@Override
+	public Employee addEmployee(Employee emp) {
+		
+		return null;
+	}
+
+	@Override
+	public Employee getEmployeeById(int id) throws EmployeeNotFoundException {
+		
+		return null;
+	}
+
+	@Override
+	public Employee updateEmployee(Employee emp) {
+		
+		return null;
+	}
+
+	@Override
+	public void deleteEmployeeById(int id) {
+		
+
+	}
+
+	@Override
+	public Employee updateContactNo(int id, String newContactNo) {
+		
+		return null;
+	}
+
+}
